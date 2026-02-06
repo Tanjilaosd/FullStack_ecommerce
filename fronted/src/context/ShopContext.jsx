@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
   export const ShopContextProvider = (props) =>{
     const currency = "$"
     const delivery_fee = 10
-    const backURL = import.meta.env.VITE_BACKEND_URL;
+    const backURL = "https://fullstack-ecommerce-obdx.onrender.com";
 
     const [search,setSearch] = useState('')
     const [showSearch,setShowSearch] = useState(false)
