@@ -9,7 +9,7 @@ import Login from "./components/Login";
 import { ToastContainer } from 'react-toastify';
   
 
- export const backendUrl = import.meta.env.VITE_BACKEND_URL
+ export const backendUrl = "https://fullstack-ecommerce-obdx.onrender.com"
  export const currency = "$"
 
 const App = () => {
