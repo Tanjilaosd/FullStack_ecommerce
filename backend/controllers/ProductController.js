@@ -6,54 +6,58 @@ import productModel from './../models/productModel.js';
 
 
  const addProduct = async (req, res) => {
-    try {
-        console.log("Request Body:", req.body);
-        console.log("Request Files:", req.files);
+  try {
+    console.log("BODY 👉", req.body);
+    console.log("FILES 👉", req.files);
 
-        const { name, description, price, category, subCategory, sizes, bestSeller } = req.body;
+    const { name, description, price, category, subCategory, sizes, bestSeller } = req.body;
 
-        if (!name || !description || !price) {
-            return res.status(400).json({ success: false, message: "All fields required" });
-        }
+    
 
-        // Convert req.files object to array
-        const images = [
-            req.files.image1?.[0],
-            req.files.image2?.[0],
-            req.files.image3?.[0],
-            req.files.image4?.[0]
-        ].filter(Boolean); // remove undefined
+    const images = [
+      req.files?.image1?.[0],
+      req.files?.image2?.[0],
+      req.files?.image3?.[0],
+      req.files?.image4?.[0]
+    ].filter(Boolean);
 
-        // Upload images to Cloudinary
-        const imageUrls = await Promise.all(
-            images.map(file => cloudinary.uploader.upload(file.path)
-                .then(result => result.secure_url))
-        );
-
-        // Controller
+    const imageUrl = images.filter((item)=> item !== undefined)
+    
 
 
-        const productData = {
-            name: name.trim(),
-            description: description.trim(),
-            price: Number(price),
-            category,
-            subCategory,
-            sizes: JSON.parse(sizes),
-            bestSeller: bestSeller === "true",
-            image: imageUrls,
-            date: Date.now()
-        };
+    const imageUrls = await Promise.all(
+      imageUrl.map(async (item) => {
+        let result = await cloudinary.uploader.upload(item.path,{resource_type:"image"})
+        return result.secure_url
+      })
+    )
+  
 
-        const product = new productModel(productData);
-        await product.save();
+    
+    
 
-        res.json({ success: true, message: "Product added successfully" });
+    const productData = {
+      name,
+      description, 
+      price: Number(price),
+      category,
+      subCategory,
+      sizes: sizes ? JSON.parse(sizes) : [],
 
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: "Product add failed", error });
-    }
+      bestSeller: bestSeller === "true" ? true : false,
+      image:imageUrls,
+      date: Date.now()
+    };
+
+    const product = new productModel(productData);
+    await product.save();
+
+    res.json({ success: true, message: "Product added successfully" });
+
+  } catch (error) {
+    console.log("ADD PRODUCT ERROR ❌", error);
+    res.status(500).json({ success: false, message: "Product add failed" });
+  }
 };
 
 
