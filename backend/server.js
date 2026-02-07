@@ -15,6 +15,15 @@ connectCloudinary()
  
 
 // middleware
+app.use(cors({
+  origin: [
+    "https://fronted-1gmi.onrender.com",
+    "https://admin-6ndm.onrender.com"   // 👈 THIS ONE
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false
+}));
 
 
 // api endpoints
@@ -28,15 +37,7 @@ app.use('/api/cart',cartRouter)
 
 
 
-app.use(cors({
-  origin: [
-    "https://fronted-1gmi.onrender.com",
-    "https://admin-6ndm.onrender.com"   // 👈 THIS ONE
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: false
-}));
+
 
 
 app.use(express.json());
