@@ -17,27 +17,33 @@ connectCloudinary()
 // middleware
 
 
+// api endpoints
+
+app.use('/api/user',userRouter)
+app.use('/api/product',productRouter)
+app.use('/api/cart',cartRouter)
+
+
+
+
 
 
 app.use(cors({
-  origin: ['https://admin-panel-vab9.onrender.com', 'https://fronted-1gmi.onrender.com'], // React dev server
-  methods: ['GET','POST','PUT','DELETE'],
-  allowedHeaders: ['Content-Type','Authorization'],
+  origin: [
+    "https://fronted-1gmi.onrender.com",
+    "https://admin-6ndm.onrender.com"   // 👈 THIS ONE
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: false
 }));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
 
-
-
-// api endpoints
-
-app.use('/api/user',userRouter)
-app.use('/api/product',productRouter)
-app.use('/api/cart',cartRouter)
 
 
 app.get('/',(req,res)=>{
