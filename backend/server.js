@@ -20,7 +20,7 @@ connectCloudinary()
 
 
 app.use(cors({
-  origin: ['https://admin-panel-vab9.onrender.com/', 'https://fronted-1gmi.onrender.com/'], // React dev server
+  origin: ['https://admin-panel-vab9.onrender.com', 'https://fronted-1gmi.onrender.com'], // React dev server
   methods: ['GET','POST','PUT','DELETE'],
   allowedHeaders: ['Content-Type','Authorization'],
   credentials: true
