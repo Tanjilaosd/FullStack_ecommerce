@@ -9,7 +9,7 @@ const Add = ({token}) => {
   const [image2, setImage2] = useState(null);
   const [image3, setImage3] = useState(null);
   const [image4, setImage4] = useState(null);
-  const backendUrl = "https://fullstack-ecommerce-obdx.onrender.com"
+
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
