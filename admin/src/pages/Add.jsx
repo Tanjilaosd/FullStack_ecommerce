@@ -56,10 +56,11 @@ try {
  const response = await axios.post(
   backendUrl + "/api/product/add",
   formData,
-  {
-   headers: {
-  Authorization: `Bearer ${token}`
-}
+ {
+  headers: { Authorization: `Bearer ${token}` },
+  withCredentials: true
+
+
 
   }
   
